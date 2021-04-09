@@ -44,7 +44,6 @@ int main()
         in >> digit;
         data[count].Lat = digit;
         cout << data[count].Lat<< endl;
-        // in >> trash;
         count++;
         if(count >= 100)
         {
