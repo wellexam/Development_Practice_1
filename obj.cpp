@@ -6,12 +6,12 @@
 #include"obj.hpp"
 using namespace std;
 
-int main()
+void readFile(string address)
 {
     static object data[120000];
     fstream in;
     char head[256];
-    in.open("DEM_TXT\\2.txt", ios::in);
+    in.open(address, ios::in);
     in.getline(head, 256, '\n');
     int count = 0;
     int id;
@@ -37,7 +37,6 @@ int main()
 
     while(!in.eof())
     {
-        // long double digit;
         in >> id;
         in >> comma;//逗号
 
@@ -58,6 +57,7 @@ int main()
 
         in >> digit;
         data[count].Lat = digit;
+
         if(LatMax<data[count].Lat)
         {
             LatMax=data[count].Lat;
@@ -76,26 +76,5 @@ int main()
         }
 
         count++;
-        // if(count >= 100)
-        // {
-        //     break;
-        // }
     }
-    count--;
-    sort(data, data + count);
-    for (int i = 0; i<20; i++)
-    {
-        cout << data[i].pointid << ' '
-             << fixed << setprecision(7)
-             << data[i].grid_code << ' '
-             << data[i].Lon << ' '
-             << data[i].Lat << endl;
-    }
-    cout << fixed << setprecision(7)
-         << "LatMax == " << LatMax << " "
-         << "LatMin == " << LatMin << " "
-         << "LonMax == " << LonMax << " "
-         << "LonMin == " << LonMin << endl;
-    in.close();
-    return 0;
 }
