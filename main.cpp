@@ -2,9 +2,7 @@
 #include<iostream>
 #include<fstream>
 #include<iomanip>
-#include<windows.h>
 #include<vector>
-// #include<string>
 using namespace std;
 
 class object
@@ -14,46 +12,35 @@ class object
         long double grid_code;
         long double Lon;
         long double Lat;
-    static bool ValueCmp(object const & a, object const & b)
-    {
-        return a.grid_code < b.grid_code;
-    }
-        // bool operator < (const object &m)const
+        static long double LatMax, LatMin, LonMax, LonMin;
+        // static bool ValueCmp(object const &a, object const &b)
         // {
-        //     return grid_code < m.grid_code;
+        //     return a.grid_code > b.grid_code;
         // }
-        // bool operator > (const object &m)const
+        // friend bool operator > (const object &a, const object &b)
         // {
-        //     return grid_code > m.grid_code;
+        //     return a.grid_code > b.grid_code;
         // }
-        // bool operator == (const object &m)const
+        // friend bool operator == (const object &a, const object &b)
         // {
-        //     return grid_code == m.grid_code;
+        //     return a.grid_code == b.grid_code;
         // }
-        // bool operator != (const object &m)const
+        // friend bool operator != (const object &a, const object &b)
         // {
-        //     return grid_code != m.grid_code;
+        //     return a.grid_code != b.grid_code;
         // }
-        // long double operator - (const object &m)const
+        // friend object operator - (const object &a, const object &b)
         // {
-        //     return grid_code - m.grid_code;
+        //     object temp;
+        //     temp.grid_code = a.grid_code - b.grid_code;
+        //     temp.pointid = a.pointid;
+        //     temp.Lon = a.Lon;
+        //     temp.Lat = a.Lat;
+        //     return temp;
         // }
 };
 
-bool cmp_grid_code(object a, object b)
-{
-    return a.grid_code > b.grid_code;
-}
 
-bool cmp_Lon(object a, object b)
-{
-    return a.Lon > b.Lon;
-}
-
-bool cmp_Lat(object &a, object &b)
-{
-    return a.Lat > b.Lat;
-}
 
 int main()
 {
@@ -64,7 +51,6 @@ int main()
     in.getline(head, 256, '\n');
     int count = 0;
     int id;
-    // long double digit;
     char trash;
     while(!in.eof())
     {
@@ -100,7 +86,9 @@ int main()
     }
     count--;
     cout << endl;
-    sort(data[0], data[count], object::ValueCmp);
+    sort(data[0], data[count],
+          [](object const & a, object const & b) -> bool
+          { return a.grid_code < b.grid_code; } );
     for (int i = 0; i<count; i++)
     {
         cout << data[i].pointid<< ' ';
