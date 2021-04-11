@@ -35,4 +35,4 @@ class object
         }
 };
 
-void readFile(string);
+void readFile(string, object*, int&);

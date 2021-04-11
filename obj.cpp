@@ -6,14 +6,12 @@
 #include"obj.hpp"
 using namespace std;
 
-void readFile(string address)
+void readFile(string address, object * data, int &count)
 {
-    static object data[120000];
     fstream in;
     char head[256];
     in.open(address, ios::in);
     in.getline(head, 256, '\n');
-    int count = 0;
     int id;
     char comma;
     long double digit;
@@ -77,4 +75,12 @@ void readFile(string address)
 
         count++;
     }
+    count--;
+    cout << fixed << setprecision(7)
+         << "LatMax == " << LatMax << " "
+         << "LatMin == " << LatMin << " "
+         << "LonMax == " << LonMax << " "
+         << "LonMin == " << LonMin << endl;
+    in.close();
+    return;
 }
