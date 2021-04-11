@@ -1,4 +1,5 @@
 #include<string>
+#include <windows.h>
 using namespace std;
 class object
 {
@@ -31,8 +32,9 @@ class object
             temp.pointid = a.pointid;
             temp.Lon = a.Lon;
             temp.Lat = a.Lat;
+            temp.position = a.position;
             return temp;
         }
 };
 
-void readFile(string, object*, int&);
+void readFile(string, object*, int&, int);

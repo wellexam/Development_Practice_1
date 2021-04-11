@@ -6,15 +6,14 @@
 #include"obj.hpp"
 using namespace std;
 
-void readFile(string address, object * data, int &count)
+void readFile(string address, object * data, int &count, int pos)
 {
+    int id, begin = count;
+    char comma, head[256];
+    long double digit;
     fstream in;
-    char head[256];
     in.open(address, ios::in);
     in.getline(head, 256, '\n');
-    int id;
-    char comma;
-    long double digit;
 
     in >> id;
     in >> comma;//逗号
@@ -29,6 +28,7 @@ void readFile(string address, object * data, int &count)
     in >> comma;//逗号
     in >> digit;
     data[count].Lat = digit;
+    data[count].position = pos;
 
     long double LatMax=data[count].Lat, LatMin=data[count].Lat, LonMax=data[count].Lon, LonMin=data[count].Lon;
     count++;
@@ -56,6 +56,8 @@ void readFile(string address, object * data, int &count)
         in >> digit;
         data[count].Lat = digit;
 
+        data[count].position = pos;//来自的文件位置
+
         if(LatMax<data[count].Lat)
         {
             LatMax=data[count].Lat;
@@ -77,10 +79,21 @@ void readFile(string address, object * data, int &count)
     }
     count--;
     cout << fixed << setprecision(7)
+         << "File" << pos << " : "
          << "LatMax == " << LatMax << " "
          << "LatMin == " << LatMin << " "
          << "LonMax == " << LonMax << " "
          << "LonMin == " << LonMin << endl;
+    sort(data + begin, data + count);
+    for (int i = begin; i<begin+20; i++)
+    {
+        cout << data[i].pointid << ' '
+             << fixed << setprecision(7)
+             << data[i].grid_code << ' '
+             << data[i].Lon << ' '
+             << data[i].Lat << ' '
+             << endl;
+    }
     in.close();
     return;
 }
