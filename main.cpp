@@ -22,13 +22,15 @@ int main()
         LARGE_INTEGER t1,t2,tc;
         QueryPerformanceFrequency(&tc);
         QueryPerformanceCounter(&t1);
+
         readFile(address, data, count, i);
+        
         QueryPerformanceCounter(&t2);
         time=(double)(t2.QuadPart-t1.QuadPart)/(double)tc.QuadPart; 
         cout<<"time = "<<time<<endl;  //输出时间（单位：ｓ）
     }
     sort(data, data + count);
-    cout << "Input the number of the rows you want to display. ";
+    cout << "Input the number of the rows you want to display. " << endl;
     cin >> rows;
     for (int i = 0; i<rows; i++)
     {
